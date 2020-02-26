@@ -1,5 +1,4 @@
 import * as core from '@actions/core'
-//import {wait} from './wait'
 import {execFile} from 'child_process'
 
 async function run(): Promise<void> {
@@ -25,16 +24,6 @@ async function run(): Promise<void> {
       process.addListener('exit', resolve)
     })
     await processPromise
-    /*
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
-
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
-    */
   } catch (error) {
     core.setFailed(error.message)
   }
