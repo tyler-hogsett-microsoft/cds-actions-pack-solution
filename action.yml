@@ -1,10 +1,17 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Pack Common Data Service Solution'
+description: 'Runs SolutionPackager.exe from the CDS SDK CoreTools nuget package to pack a solution into a deployable file'
+author: 'Tyler Hogsett - Microsoft PFE'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  folder:
+    description: 'unpacked solution contents folder'
+    required: true
+  zipFile:
+    description: 'path of the solution zip file to create'
+    required: true
+  packageType:
+    description: 'unmanaged / managed / both'
+    default: 'both'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
