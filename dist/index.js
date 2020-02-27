@@ -81,6 +81,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const child_process_1 = __webpack_require__(129);
+const path_1 = __webpack_require__(622);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -96,7 +97,8 @@ function run() {
                 const folder = core.getInput('folder', requiredOption);
                 core.info(`folder: ${folder}`);
                 core.info('running solution packager');
-                const process = child_process_1.execFile('./core-tools/SolutionPackager.exe', [
+                const solutionPackagerPath = __webpack_require__.ab + "SolutionPackager.exe";
+                const process = child_process_1.execFile(__webpack_require__.ab + "SolutionPackager.exe", [
                     '/action:Pack',
                     `/zipfile:${zipFile}`,
                     `/packagetype:${packageType}`,

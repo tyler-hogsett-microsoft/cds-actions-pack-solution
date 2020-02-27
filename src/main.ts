@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import {execFile} from 'child_process'
+import {join} from 'path'
 
 async function run(): Promise<void> {
   try {
@@ -14,7 +15,12 @@ async function run(): Promise<void> {
       const folder = core.getInput('folder', requiredOption)
       core.info(`folder: ${folder}`)
       core.info('running solution packager')
-      const process = execFile('./core-tools/SolutionPackager.exe', [
+      const solutionPackagerPath = join(
+        __dirname,
+        '../',
+        '/core-tools/SolutionPackager.exe'
+      )
+      const process = execFile(solutionPackagerPath, [
         '/action:Pack',
         `/zipfile:${zipFile}`,
         `/packagetype:${packageType}`,
