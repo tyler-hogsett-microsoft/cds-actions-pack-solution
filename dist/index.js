@@ -120,7 +120,9 @@ function run() {
                 process.addListener('error', createEventHandler('error'));
                 process.addListener('message', createEventHandler('message'));
                 process.addListener('exit', code => {
+                    var _a;
                     core.info(`solution packager exited. error code: ${code}`);
+                    core.info(`all the out: ${(_a = process.stdout) === null || _a === void 0 ? void 0 : _a.read()}`);
                     resolve();
                 });
             });
