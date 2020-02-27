@@ -15,11 +15,7 @@ async function run(): Promise<void> {
       const folder = core.getInput('folder', requiredOption)
       core.info(`folder: ${folder}`)
       core.info('running solution packager')
-      const solutionPackagerPath = join(
-        __dirname,
-        '../',
-        '/core-tools/SolutionPackager.exe'
-      )
+      const solutionPackagerPath = 'core-tools/SolutionPackager.exe'
       const process = execFile(
         solutionPackagerPath,
         [
@@ -28,6 +24,9 @@ async function run(): Promise<void> {
           `/packagetype:${packageType}`,
           `/folder:${folder}`
         ],
+        {
+          cwd: join(__dirname, '..')
+        },
         (err, stdout, stderr) => {
           if (err) {
             core.error(err.message)

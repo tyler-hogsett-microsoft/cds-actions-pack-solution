@@ -97,13 +97,15 @@ function run() {
                 const folder = core.getInput('folder', requiredOption);
                 core.info(`folder: ${folder}`);
                 core.info('running solution packager');
-                const solutionPackagerPath = __webpack_require__.ab + "SolutionPackager.exe";
-                const process = child_process_1.execFile(__webpack_require__.ab + "SolutionPackager.exe", [
+                const solutionPackagerPath = 'core-tools/SolutionPackager.exe';
+                const process = child_process_1.execFile(solutionPackagerPath, [
                     '/action:Pack',
                     `/zipfile:${zipFile}`,
                     `/packagetype:${packageType}`,
                     `/folder:${folder}`
-                ], (err, stdout, stderr) => {
+                ], {
+                    cwd: path_1.join(__dirname, '..')
+                }, (err, stdout, stderr) => {
                     if (err) {
                         core.error(err.message);
                     }
