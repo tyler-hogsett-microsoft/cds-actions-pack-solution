@@ -46,6 +46,7 @@ async function run(): Promise<void> {
       process.addListener('message', createEventHandler('message'))
       process.addListener('exit', code => {
         core.info(`solution packager exited. error code: ${code}`)
+        core.info(`all the out: ${process.stdout?.read()}`)
         resolve()
       })
     })
