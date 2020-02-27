@@ -103,9 +103,17 @@ function run() {
                     `/zipfile:${zipFile}`,
                     `/packagetype:${packageType}`,
                     `/folder:${folder}`
-                ]);
-                (_a = process.stdout) === null || _a === void 0 ? void 0 : _a.addListener('data', core.info);
-                (_b = process.stdout) === null || _b === void 0 ? void 0 : _b.addListener('error', error => {
+                ], (err, stdout, stderr) => {
+                    if (err) {
+                        core.error(err.message);
+                    }
+                    core.info(stdout);
+                    core.error(stderr);
+                });
+                (_a = process.stdout) === null || _a === void 0 ? void 0 : _a.on('data', data => {
+                    core.info(`${data}`);
+                });
+                (_b = process.stdout) === null || _b === void 0 ? void 0 : _b.on('error', error => {
                     core.info(error.message);
                     core.error(error.message);
                     core.setFailed(error.message);

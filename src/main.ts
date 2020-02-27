@@ -20,14 +20,26 @@ async function run(): Promise<void> {
         '../',
         '/core-tools/SolutionPackager.exe'
       )
-      const process = execFile(solutionPackagerPath, [
-        '/action:Pack',
-        `/zipfile:${zipFile}`,
-        `/packagetype:${packageType}`,
-        `/folder:${folder}`
-      ])
-      process.stdout?.addListener('data', core.info)
-      process.stdout?.addListener('error', error => {
+      const process = execFile(
+        solutionPackagerPath,
+        [
+          '/action:Pack',
+          `/zipfile:${zipFile}`,
+          `/packagetype:${packageType}`,
+          `/folder:${folder}`
+        ],
+        (err, stdout, stderr) => {
+          if (err) {
+            core.error(err.message)
+          }
+          core.info(stdout)
+          core.error(stderr)
+        }
+      )
+      process.stdout?.on('data', data => {
+        core.info(`${data}`)
+      })
+      process.stdout?.on('error', error => {
         core.info(error.message)
         core.error(error.message)
         core.setFailed(error.message)
