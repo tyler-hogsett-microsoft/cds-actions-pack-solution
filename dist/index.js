@@ -104,12 +104,22 @@ function run() {
                 ]);
                 (_a = process.stdout) === null || _a === void 0 ? void 0 : _a.addListener('data', core.info);
                 (_b = process.stdout) === null || _b === void 0 ? void 0 : _b.addListener('error', reject);
+                const createEventHandler = (event) => (code) => {
+                    core.info(`event: ${event}, code: ${code}`);
+                };
+                process.addListener('close', createEventHandler('close'));
+                process.addListener('disconnect', createEventHandler('disconnect'));
+                process.addListener('error', createEventHandler('error'));
+                process.addListener('message', createEventHandler('message'));
                 process.addListener('exit', code => {
                     core.info(`solution packager exited. error code: ${code}`);
                     resolve();
                 });
             });
-            yield processPromise;
+            yield processPromise.catch(error => {
+                core.error(error);
+                throw error;
+            });
         }
         catch (error) {
             core.error(error);
