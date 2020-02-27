@@ -105,7 +105,13 @@ function run() {
                     `/folder:${folder}`
                 ]);
                 (_a = process.stdout) === null || _a === void 0 ? void 0 : _a.addListener('data', core.info);
-                (_b = process.stdout) === null || _b === void 0 ? void 0 : _b.addListener('error', reject);
+                (_b = process.stdout) === null || _b === void 0 ? void 0 : _b.addListener('error', error => {
+                    core.info(error.message);
+                    core.error(error.message);
+                    core.setFailed(error.message);
+                    reject(error);
+                });
+                core.info(`process.stdout: ${process.stdout}`);
                 const createEventHandler = (event) => (code) => {
                     core.info(`event: ${event}, code: ${code}`);
                 };

@@ -27,7 +27,14 @@ async function run(): Promise<void> {
         `/folder:${folder}`
       ])
       process.stdout?.addListener('data', core.info)
-      process.stdout?.addListener('error', reject)
+      process.stdout?.addListener('error', error => {
+        core.info(error.message)
+        core.error(error.message)
+        core.setFailed(error.message)
+        reject(error)
+      })
+      core.info(`process.stdout: ${process.stdout}`)
+
       const createEventHandler = (event: string): ((code: number) => void) => (
         code: number
       ): void => {
