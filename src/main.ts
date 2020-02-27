@@ -22,6 +22,15 @@ async function run(): Promise<void> {
       ])
       process.stdout?.addListener('data', core.info)
       process.stdout?.addListener('error', reject)
+      const createEventHandler = (event: string): ((code: number) => void) => (
+        code: number
+      ): void => {
+        core.info(`event: ${event}, code: ${code}`)
+      }
+      process.addListener('close', createEventHandler('close'))
+      process.addListener('disconnect', createEventHandler('disconnect'))
+      process.addListener('error', createEventHandler('error'))
+      process.addListener('message', createEventHandler('message'))
       process.addListener('exit', code => {
         core.info(`solution packager exited. error code: ${code}`)
         resolve()
