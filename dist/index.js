@@ -50,6 +50,13 @@ module.exports = require("os");
 
 /***/ }),
 
+/***/ 129:
+/***/ (function(module) {
+
+module.exports = require("child_process");
+
+/***/ }),
+
 /***/ 198:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -73,7 +80,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
-//import {execFile} from 'child_process'
+const child_process_1 = __webpack_require__(129);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -107,6 +114,7 @@ function run() {
             core.info(`packageType: ${packageType}`);
             const folder = core.getInput('folder', requiredOption);
             core.info(`folder: ${folder}`);
+            core.info(`execFile: ${child_process_1.execFile}`);
         }
         catch (error) {
             core.setFailed(error.message);

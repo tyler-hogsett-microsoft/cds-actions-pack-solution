@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-//import {execFile} from 'child_process'
+import {execFile} from 'child_process'
 
 async function run(): Promise<void> {
   try {
@@ -33,6 +33,7 @@ async function run(): Promise<void> {
     core.info(`packageType: ${packageType}`)
     const folder = core.getInput('folder', requiredOption)
     core.info(`folder: ${folder}`)
+    core.info(`execFile: ${execFile}`)
   } catch (error) {
     core.setFailed(error.message)
   }
