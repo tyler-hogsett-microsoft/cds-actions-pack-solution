@@ -84,39 +84,31 @@ const child_process_1 = __webpack_require__(129);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            /*const processPromise = new Promise((resolve, reject) => {
-              const requiredOption: core.InputOptions = {
-                required: true
-              }
-              const zipFile = core.getInput('zipFile', requiredOption)
-              core.info(`zipFile: ${zipFile}`)
-              const packageType = core.getInput('packageType') || 'Both'
-              core.info(`packageType: ${packageType}`)
-              const folder = core.getInput('folder', requiredOption)
-              core.info(`folder: ${folder}`)
-              const process = execFile('./core-tools/SolutionPackager.exe', [
-                '/action:Pack',
-                `/zipfile:${zipFile}`,
-                `/packagetype:${packageType}`,
-                `/folder:${folder}`
-              ])
-              process.stdout?.addListener('data', core.info)
-              process.addListener('error', error => reject(error.message))
-              process.addListener('exit', resolve)
-            })
-            await processPromise*/
-            const requiredOption = {
-                required: true
-            };
-            const zipFile = core.getInput('zipFile', requiredOption);
-            core.info(`zipFile: ${zipFile}`);
-            const packageType = core.getInput('packageType') || 'Both';
-            core.info(`packageType: ${packageType}`);
-            const folder = core.getInput('folder', requiredOption);
-            core.info(`folder: ${folder}`);
-            core.info(`execFile: ${child_process_1.execFile}`);
+            const processPromise = new Promise((resolve, reject) => {
+                var _a, _b;
+                const requiredOption = {
+                    required: true
+                };
+                const zipFile = core.getInput('zipFile', requiredOption);
+                core.info(`zipFile: ${zipFile}`);
+                const packageType = core.getInput('packageType') || 'Both';
+                core.info(`packageType: ${packageType}`);
+                const folder = core.getInput('folder', requiredOption);
+                core.info(`folder: ${folder}`);
+                const process = child_process_1.execFile('./core-tools/SolutionPackager.exe', [
+                    '/action:Pack',
+                    `/zipfile:${zipFile}`,
+                    `/packagetype:${packageType}`,
+                    `/folder:${folder}`
+                ]);
+                (_a = process.stdout) === null || _a === void 0 ? void 0 : _a.addListener('data', core.info);
+                (_b = process.stdout) === null || _b === void 0 ? void 0 : _b.addListener('error', reject);
+                process.addListener('exit', resolve);
+            });
+            yield processPromise;
         }
         catch (error) {
+            core.error(error);
             core.setFailed(error.message);
         }
     });
