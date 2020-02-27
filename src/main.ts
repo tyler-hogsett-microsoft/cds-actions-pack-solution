@@ -13,6 +13,7 @@ async function run(): Promise<void> {
       core.info(`packageType: ${packageType}`)
       const folder = core.getInput('folder', requiredOption)
       core.info(`folder: ${folder}`)
+      core.info('running solution packager')
       const process = execFile('./core-tools/SolutionPackager.exe', [
         '/action:Pack',
         `/zipfile:${zipFile}`,
@@ -21,7 +22,10 @@ async function run(): Promise<void> {
       ])
       process.stdout?.addListener('data', core.info)
       process.stdout?.addListener('error', reject)
-      process.addListener('exit', resolve)
+      process.addListener('exit', code => {
+        core.info(`solution packager exited. error code: ${code}`)
+        resolve()
+      })
     })
     await processPromise
   } catch (error) {

@@ -95,6 +95,7 @@ function run() {
                 core.info(`packageType: ${packageType}`);
                 const folder = core.getInput('folder', requiredOption);
                 core.info(`folder: ${folder}`);
+                core.info('running solution packager');
                 const process = child_process_1.execFile('./core-tools/SolutionPackager.exe', [
                     '/action:Pack',
                     `/zipfile:${zipFile}`,
@@ -103,7 +104,10 @@ function run() {
                 ]);
                 (_a = process.stdout) === null || _a === void 0 ? void 0 : _a.addListener('data', core.info);
                 (_b = process.stdout) === null || _b === void 0 ? void 0 : _b.addListener('error', reject);
-                process.addListener('exit', resolve);
+                process.addListener('exit', code => {
+                    core.info(`solution packager exited. error code: ${code}`);
+                    resolve();
+                });
             });
             yield processPromise;
         }
