@@ -27,7 +27,10 @@ async function run(): Promise<void> {
         resolve()
       })
     })
-    await processPromise
+    await processPromise.catch(error => {
+      core.error(error)
+      throw error
+    })
   } catch (error) {
     core.error(error)
     core.setFailed(error.message)
