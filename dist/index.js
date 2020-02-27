@@ -50,13 +50,6 @@ module.exports = require("os");
 
 /***/ }),
 
-/***/ 129:
-/***/ (function(module) {
-
-module.exports = require("child_process");
-
-/***/ }),
-
 /***/ 198:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -80,43 +73,40 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
-//import {wait} from './wait'
-const child_process_1 = __webpack_require__(129);
+//import {execFile} from 'child_process'
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const processPromise = new Promise((resolve, reject) => {
-                var _a;
-                const requiredOption = {
-                    required: true
-                };
-                const zipFile = core.getInput('zipFile', requiredOption);
-                core.info(`zipFile: ${zipFile}`);
-                const packageType = core.getInput('packageType') || 'Both';
-                core.info(`packageType: ${packageType}`);
-                const folder = core.getInput('folder', requiredOption);
-                core.info(`folder: ${folder}`);
-                const process = child_process_1.execFile('./core-tools/SolutionPackager.exe', [
-                    '/action:Pack',
-                    `/zipfile:${zipFile}`,
-                    `/packagetype:${packageType}`,
-                    `/folder:${folder}`
-                ]);
-                (_a = process.stdout) === null || _a === void 0 ? void 0 : _a.addListener('data', core.info);
-                process.addListener('error', error => reject(error.message));
-                process.addListener('exit', resolve);
-            });
-            yield processPromise;
-            /*
-            const ms: string = core.getInput('milliseconds')
-            core.debug(`Waiting ${ms} milliseconds ...`)
-        
-            core.debug(new Date().toTimeString())
-            await wait(parseInt(ms, 10))
-            core.debug(new Date().toTimeString())
-        
-            core.setOutput('time', new Date().toTimeString())
-            */
+            /*const processPromise = new Promise((resolve, reject) => {
+              const requiredOption: core.InputOptions = {
+                required: true
+              }
+              const zipFile = core.getInput('zipFile', requiredOption)
+              core.info(`zipFile: ${zipFile}`)
+              const packageType = core.getInput('packageType') || 'Both'
+              core.info(`packageType: ${packageType}`)
+              const folder = core.getInput('folder', requiredOption)
+              core.info(`folder: ${folder}`)
+              const process = execFile('./core-tools/SolutionPackager.exe', [
+                '/action:Pack',
+                `/zipfile:${zipFile}`,
+                `/packagetype:${packageType}`,
+                `/folder:${folder}`
+              ])
+              process.stdout?.addListener('data', core.info)
+              process.addListener('error', error => reject(error.message))
+              process.addListener('exit', resolve)
+            })
+            await processPromise*/
+            const requiredOption = {
+                required: true
+            };
+            const zipFile = core.getInput('zipFile', requiredOption);
+            core.info(`zipFile: ${zipFile}`);
+            const packageType = core.getInput('packageType') || 'Both';
+            core.info(`packageType: ${packageType}`);
+            const folder = core.getInput('folder', requiredOption);
+            core.info(`folder: ${folder}`);
         }
         catch (error) {
             core.setFailed(error.message);
