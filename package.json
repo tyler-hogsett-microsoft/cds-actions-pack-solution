@@ -5,12 +5,13 @@
   "description": "TypeScript template action",
   "main": "lib/main.js",
   "scripts": {
+    "dev": "ts-mocha -p tsconfig.json **/*.spec.ts -w --watch-extensions ts",
     "build": "tsc",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
     "pack": "ncc build",
-    "test": "jest",
+    "test": "mocha",
     "all": "npm run build && npm run format && npm run lint && npm run pack && npm test"
   },
   "repository": {
@@ -25,21 +26,31 @@
   "author": "YourNameOrOrganization",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.0"
+    "@actions/core": "^1.2.0",
+    "@types/expect": "^24.3.0",
+    "@types/mocha": "^7.0.2"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.10",
+    "@types/chai-as-promised": "^7.1.2",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.7.12",
     "@typescript-eslint/parser": "^2.8.0",
     "@zeit/ncc": "^0.20.5",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^5.16.0",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-github": "^2.0.0",
     "eslint-plugin-jest": "^22.21.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^24.9.0",
     "jest-circus": "^24.9.0",
     "js-yaml": "^3.13.1",
+    "mocha": "^7.1.0",
     "prettier": "^1.19.1",
     "ts-jest": "^24.2.0",
+    "ts-mocha": "^6.0.0",
     "typescript": "^3.6.4"
   }
 }
