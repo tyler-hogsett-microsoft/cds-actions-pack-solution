@@ -7,5 +7,3 @@ export interface Request {
   packageType: PackageType;
   folder: string;
 }
-
-export interface Result {}

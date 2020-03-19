@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import execFile from 'child_process';
 import {join} from 'path';
+import * as solutionPackager from './solution-packager';
 
 async function run(): Promise<void> {
   try {
